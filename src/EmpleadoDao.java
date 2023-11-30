@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -156,7 +157,6 @@ public class EmpleadoDao implements DaoEmpleado{
             preStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            // Maneja la excepción según tus necesidades
         }
     }
 
@@ -271,6 +271,104 @@ public class EmpleadoDao implements DaoEmpleado{
         }
 
         return empleados;
+    }
+
+    @Override
+    public void insertarDepartamento(Departamento departamento) {
+
+        String sql = "INSERT INTO departamento (Numdep, Nombredep, Numempdep, NSSgerente, fechainicgerente) " +
+                "VALUES (?, ?, ?, ?, ?)";
+
+        try (PreparedStatement preStatement = conexion.prepareStatement(sql)) {
+            //establecer los valores de los parámetros
+            preStatement.setInt(1, departamento.getNumeroDepartamento());
+            preStatement.setString(2, departamento.getNombreDepartamento());
+            preStatement.setInt(3, departamento.getNumeroDepartamento());
+            preStatement.setString(4, departamento.getNSSgerente());
+            preStatement.setDate(5, java.sql.Date.valueOf(departamento.getFechaInicioGerente()));
+            preStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void modificarDepartamento(Departamento dep) {
+
+    }
+
+    @Override
+    public void elimminarDepartamento(int numeroDepartamento) {
+        String sqlDeleteDepto = "DELETE FROM departamento WHERE Numdep = ?";
+        try (PreparedStatement psDelete = conexion.prepareStatement(sqlDeleteDepto)) {
+            psDelete.setInt(1, numeroDepartamento);
+            int filasAfectadas = psDelete.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                System.out.println("Departamento eliminado");
+            } else {
+                System.out.println("No se puede eliminar el departamento");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    @Override
+    public List<Departamento> obtenerTodosDepartamentos() {
+        return null;
+    }
+
+    @Override
+    public Departamento obtenerPorNumDepartamento(int numeroDepartamento) {
+        String sqlVerificarDepartamento = "SELECT Numempdep FROM departamento WHERE Numdep = ?";
+        try (PreparedStatement psVerificar = conexion.prepareStatement(sqlVerificarDepartamento)) {
+            psVerificar.setInt(1, numeroDepartamento);
+            ResultSet resultado = psVerificar.executeQuery();
+
+            if (resultado.next()) {
+                int totalEmpleados = resultado.getInt("Numempdep");
+
+                if (totalEmpleados > 0) {
+
+                    System.out.println("Numero de empleados del departamento "+totalEmpleados);
+                    String sqlVerEmpleados = "SELECT * from empleado where Numdept = ?";
+                    try {
+                        PreparedStatement preparedStatement = conexion.prepareStatement(sqlVerEmpleados);
+                        preparedStatement.setInt(1, numeroDepartamento);
+                        resultado = preparedStatement.executeQuery();
+
+                        while(resultado.next()){
+                            String nss = resultado.getString("NSS");
+                            String nombre = resultado.getString("Nombre");
+                            String apellido1 = resultado.getString("Apel1");
+                            String apellido2 = resultado.getString("Apel2");
+                            String sexo = resultado.getString("Sexo");
+                            String direccion = resultado.getString("Dirección");
+                            LocalDate fechaNacimiento = resultado.getDate("Fechanac").toLocalDate();
+                            Double salario = resultado.getDouble("Salario");
+                            int numdept = resultado.getInt("Numdept");
+                            String nsssup = resultado.getString("NSSsup");
+                            String nif = resultado.getString("NIF");
+                            System.out.println(nss + " " + nombre + " " + apellido1 + " " + apellido2 + " " + sexo + " " +
+                                    direccion + " " + fechaNacimiento + " " + salario + " " + numdept + " " + nsssup + " " + nif);
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Departamento no existe");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return null;
     }
 
 

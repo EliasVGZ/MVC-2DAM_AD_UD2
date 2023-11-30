@@ -7,6 +7,7 @@ public class ControladorEmpleado {
     private ServicioEmpleado servicio;
     private VistaEmpleado vista;
 
+
     public ControladorEmpleado(ServicioEmpleado servicio, VistaEmpleado vista) {
         this.servicio = servicio;
         this.vista = vista;
@@ -46,6 +47,7 @@ public class ControladorEmpleado {
 
 
     }
+
 
     public void actualizarEmpleado() throws IOException {
         String dni = vista.obtenerNif();

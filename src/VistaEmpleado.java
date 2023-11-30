@@ -11,7 +11,7 @@ public class VistaEmpleado {
 
     private BufferedReader br;
 
-    public VistaEmpleado(){
+    public VistaEmpleado() {
         br = new BufferedReader(new InputStreamReader(System.in));
     }
 
@@ -64,7 +64,7 @@ public class VistaEmpleado {
         return br.readLine();
     }
 
-    public LocalDate obtenerFechaNacimiento(){
+    public LocalDate obtenerFechaNacimiento() {
         LocalDate fechaNacimiento = null;
         do {
             System.out.println("Fecha de nacimiento (yyyy/MM/dd): ");
@@ -102,6 +102,7 @@ public class VistaEmpleado {
         return NSSsup;
     }
 
+
     // Métodos para mostrar resultados al usuario
     public void mostrarEmpleados(List<Empleado> empleados) {
         if (empleados != null) {
@@ -131,14 +132,15 @@ public class VistaEmpleado {
         return new Empleado(nss, nombre, apellido1, apellido2, sexo, direccion, fechaNacimiento, salario, numDept, nssSup, nif);
     }
 
-    public int obtenerNuevoSalario(){
+
+    public int obtenerNuevoSalario() {
         int nuevoSalario = 0;
-        try{
+        try {
             System.out.println("Ingrese nuevo salario: ");
             nuevoSalario = Integer.parseInt(br.readLine());
-            if(nuevoSalario>0){
+            if (nuevoSalario > 0) {
                 System.out.println("Salario correcto");
-            }else{
+            } else {
                 System.out.println("Salario incorrecto");
             }
 
@@ -147,45 +149,6 @@ public class VistaEmpleado {
         }
         return nuevoSalario;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public static boolean validaDNI_Exp(String DNI) {
@@ -205,7 +168,7 @@ public class VistaEmpleado {
         }
         return respuesta;
     }
-
-
-
 }
+
+
+

@@ -20,4 +20,12 @@ public interface DaoEmpleado {
     boolean existeDepartamento(int numeroDepartamento);
 
     List<Empleado> obtenerTodosPorDepartamento(int numeroDepartamento);
+
+    void insertarDepartamento(Departamento departamento);
+    void modificarDepartamento(Departamento dep);
+    void elimminarDepartamento(int numeroDepartamento);
+    List<Departamento> obtenerTodosDepartamentos();
+
+
+    Departamento obtenerPorNumDepartamento(int numeroDepartamento);
 }

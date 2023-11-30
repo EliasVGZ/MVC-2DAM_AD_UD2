@@ -13,6 +13,9 @@ public class ServicioEmpleado {
     public List<Empleado> obtenerTodosEmpleados() {
         return dao.obtenerTodos();
     }
+    public List<Departamento> obtenerTodosDepartamentos(){
+        return dao.obtenerTodosDepartamentos();
+    }
 
     public Empleado obtenerEmpleadoPorNIF(String nif) {
         return dao.obtenerPorNIF(nif);
@@ -29,6 +32,9 @@ public class ServicioEmpleado {
     public void insertarEmpleado(Empleado nuevoEmpleado) {
 
         dao.insertarEmpleados(nuevoEmpleado);
+    }
+    public void insertarDepartamento(Departamento nuevoDep){
+        dao.insertarDepartamento(nuevoDep);
     }
 
     public void actualizarEmpleado(Empleado nuevoEmpleado) throws IOException {
@@ -50,6 +56,12 @@ public class ServicioEmpleado {
     }
 
 
+    public Departamento obtenerDepartamentoPorNumero(int numeroDepartamento) {
+        return dao.obtenerPorNumDepartamento(numeroDepartamento);
+    }
 
+    public void borrarDepartamento(int numeroDepto) throws SQLException {
+        dao.elimminarDepartamento(numeroDepto);
+    }
 
 }
